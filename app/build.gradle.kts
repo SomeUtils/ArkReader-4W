@@ -1,27 +1,45 @@
+import java.time.LocalDate
+
 plugins {
+    alias(libs.plugins.generator)
     alias(libs.plugins.android.application)
 }
 
 android {
     namespace = "vip.cdms.arkreader"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "vip.cdms.arkreader"
-        minSdk = 16
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = 21
+        //noinspection ExpiredTargetSdkVersion
+        targetSdk = 27
+        versionCode = libs.versions.arkreader.core.code.get().toInt()
+        versionName = libs.versions.arkreader.core.version.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
+    flavorDimensions += "gamedata"
+    productFlavors {
+        create("online") {
+            applicationIdSuffix = ".online"
+        }
+        create("offline") {
+            applicationIdSuffix = ".offline"
+            val today = LocalDate.now()
+            versionCode = today.year * 10000 + today.monthValue * 100 + today.dayOfMonth
+            versionName = "%d.%02d.%02d".format(today.year, today.monthValue, today.dayOfMonth)
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -29,12 +47,8 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.google.android.material)
 }
