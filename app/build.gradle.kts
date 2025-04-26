@@ -12,8 +12,7 @@ android {
     defaultConfig {
         applicationId = "vip.cdms.arkreader"
         minSdk = 21
-        //noinspection ExpiredTargetSdkVersion
-        targetSdk = 27
+        targetSdk = 35
         versionCode = libs.versions.arkreader.core.code.get().toInt()
         versionName = libs.versions.arkreader.core.version.get()
 
@@ -21,6 +20,9 @@ android {
     }
 
     buildTypes {
+        all {
+            buildConfigField("String", "CORE_VERSION", "\"${libs.versions.arkreader.core.version.get()}\"")
+        }
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -43,6 +45,11 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
     }
 }
 

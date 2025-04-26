@@ -1,9 +1,16 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.ArkReader" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.Theme.ArkReader" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     </style>
 
-    <style name="Theme.ArkReader" parent="Base.Theme.ArkReader" />
+    <style name="Theme.ArkReader" parent="Base.Theme.ArkReader">
+        <item name="android:textColor">@color/app_content</item>
+        <item name="android:tint">@color/app_content</item>
+        <item name="colorControlHighlight">#4DFFFFFF</item>
+    </style>
+
+    <style name="Theme.ArkReader.Light" parent="Base.Theme.ArkReader">
+        <item name="android:textColor">@color/drawer_content</item>
+        <item name="android:tint">@color/drawer_content</item>
+    </style>
 </resources>
