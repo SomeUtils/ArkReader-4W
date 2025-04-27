@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.drawerContentList.getViewTreeObserver().addOnScrollChangedListener(() -> binding.drawerContentDivider.setVisibility(
+                ((ScrollView) binding.drawerContentList.getParent()).getScrollY() == 0 ? View.GONE : View.VISIBLE));
+
         addFragment("当前曲谱", ScoreFragment.class);
         addFragment("作战干员", OperatorFragment.class);
         addFragment("本地书签", BookmarkFragment.class);
