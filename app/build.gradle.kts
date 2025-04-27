@@ -54,6 +54,9 @@ android {
 }
 
 dependencies {
+    compileOnly(libs.projectlombok.lombok)
+    annotationProcessor(libs.projectlombok.lombok)
+
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)

@@ -5,12 +5,15 @@ arkreader-core-code = "1"
 #noinspection AndroidGradlePluginVersion
 android-gradle-plugin = "8.6.0-alpha07"
 
+projectlombok-lombok = "1.18.38"
 androidx-appcompat = "1.7.0"
 androidx-activity = "1.10.1"
 androidx-constraintlayout = "2.2.1"
 google-android-material = "1.12.0"
 
 [libraries]
+projectlombok-lombok = { module = "org.projectlombok:lombok", version.ref = "projectlombok-lombok" }
+
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
