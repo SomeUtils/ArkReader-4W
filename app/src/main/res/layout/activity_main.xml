@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/appbar"
             android:background="@null"
+            android:theme="@style/Theme.ArkReader.Icon"
             app:liftOnScroll="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:theme="@style/Theme.ArkReader.Light"
+        android:theme="@style/Theme.ArkReader.Light.Icon"
         android:background="@color/drawer_background"
         android:orientation="vertical">
 

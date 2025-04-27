@@ -21,7 +21,8 @@ android {
 
     buildTypes {
         all {
-            buildConfigField("String", "CORE_VERSION", "\"${libs.versions.arkreader.core.version.get()}\"")
+            buildConfigField("int", "CORE_VERSION_CODE", libs.versions.arkreader.core.code.get())
+            buildConfigField("String", "CORE_VERSION_NAME", "\"${libs.versions.arkreader.core.version.get()}\"")
         }
         release {
             isMinifyEnabled = true

@@ -5,12 +5,16 @@
 
     <style name="Theme.ArkReader" parent="Base.Theme.ArkReader">
         <item name="android:textColor">@color/app_content</item>
-        <item name="android:tint">@color/app_content</item>
         <item name="colorControlHighlight">#4DFFFFFF</item>
+    </style>
+    <style name="Theme.ArkReader.Icon" parent="Theme.ArkReader">
+        <item name="android:tint">@color/app_content</item>
     </style>
 
     <style name="Theme.ArkReader.Light" parent="Base.Theme.ArkReader">
         <item name="android:textColor">@color/drawer_content</item>
+    </style>
+    <style name="Theme.ArkReader.Light.Icon" parent="Theme.ArkReader.Light">
         <item name="android:tint">@color/drawer_content</item>
     </style>
 </resources>
