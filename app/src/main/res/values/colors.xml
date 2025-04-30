@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="app_background">#FF070707</color>
+    <color name="app_background">#FF131313</color>
     <color name="app_content">#eeFFFFFF</color>
     <color name="drawer_background">#FFFEFEFE</color>
     <color name="drawer_content">#ee000000</color>

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="appbar">40dp</dimen>
+    <dimen name="main_appbar_padding_horizontal">11.5dp</dimen>
+    <dimen name="score_set_story_cover_size">80dp</dimen>
 </resources>

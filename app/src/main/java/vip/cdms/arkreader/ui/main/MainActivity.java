@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+//        binding.getRoot().postDelayed(() -> ViewUtils.disableAllClipping(binding.getRoot()), 1000);
 
         binding.appbarDrawerButton.setOnClickListener(v ->
                 binding.drawerLayout.openDrawer(GravityCompat.START));
