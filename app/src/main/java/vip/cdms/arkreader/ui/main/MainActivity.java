@@ -1,11 +1,9 @@
 package vip.cdms.arkreader.ui.main;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -14,6 +12,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import lombok.SneakyThrows;
+import lombok.val;
+import lombok.var;
 import vip.cdms.arkreader.R;
 import vip.cdms.arkreader.databinding.ActivityMainBinding;
 import vip.cdms.arkreader.ui.main.fragments.*;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         timeTextHelper = new TimeTextHelper(binding.appbarTime);
 
-        ViewGroup.LayoutParams layoutParams = binding.drawerContentLayout.getLayoutParams();
+        val layoutParams = binding.drawerContentLayout.getLayoutParams();
         layoutParams.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.8);
         binding.drawerContentLayout.setLayoutParams(layoutParams);
 
@@ -69,25 +69,25 @@ public class MainActivity extends AppCompatActivity {
 
     @SneakyThrows
     private Fragment getOrNewFragment(final Class<? extends Fragment> clazz) {
-        Fragment fragment = fragments.get(clazz);
+        var fragment = fragments.get(clazz);
         if (fragment == null) fragments.put(clazz, fragment = clazz.getDeclaredConstructor().newInstance());
         return fragment;
     }
 
     private void addFragment(final String title, final Class<? extends Fragment> clazz) {
-        final boolean isFirstFragment = fragments.isEmpty();
+        val isFirstFragment = fragments.isEmpty();
 
-        Context themedContext = binding.drawerContentList.getContext();
-        TypedValue typedValue = new TypedValue();
-        themedContext.getTheme().resolveAttribute(android.R.attr.colorControlHighlight, typedValue, true);
-        int rippleColor = typedValue.data;
+        val themedContext = binding.drawerContentList.getContext();
+        val themeTypedValue = new TypedValue();
+        themedContext.getTheme().resolveAttribute(android.R.attr.colorControlHighlight, themeTypedValue, true);
+        val rippleColor = themeTypedValue.data;
 
-        TextView textView = new TextView(themedContext);
+        val textView = new TextView(themedContext);
         textView.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 getResources().getDimensionPixelSize(R.dimen.appbar)
         ));
-        int paddingHorizontal = UnitUtils.dp2px(this, 11.5f);
+        val paddingHorizontal = UnitUtils.dp2px(this, 11.5f);
         textView.setPadding(paddingHorizontal, 0, paddingHorizontal, 0);
         if (isFirstFragment) textView.setBackgroundColor(rippleColor);
         else textView.setBackgroundResource(R.drawable.ripple_square);
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         textView.setOnClickListener(v -> {
             if (fragment.getClass().equals(clazz)) return;
 
-            int indexBefore = new ArrayList<>(fragments.values()).indexOf(fragment);
+            val indexBefore = new ArrayList<>(fragments.values()).indexOf(fragment);
             binding.drawerContentList.getChildAt(indexBefore).setBackgroundResource(R.drawable.ripple_square);
             v.postDelayed(() -> v.setBackgroundColor(rippleColor), 250);
             ((ScrollView) binding.drawerContentList.getParent()).smoothScrollTo(0, v.getTop());

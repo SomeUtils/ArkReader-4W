@@ -2,6 +2,7 @@ package vip.cdms.arkreader.ui.utils;
 
 import android.os.CountDownTimer;
 import android.widget.TextView;
+import lombok.val;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +31,7 @@ public class TimeTextHelper extends CountDownTimer {
     public void onFinish() {}
 
     private String getCurrentTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat(timeFormat, Locale.getDefault());
+        val sdf = new SimpleDateFormat(timeFormat, Locale.getDefault());
         return sdf.format(new Date());
     }
 }

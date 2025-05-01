@@ -1,14 +1,12 @@
 package vip.cdms.arkreader.ui.components;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import lombok.var;
 import vip.cdms.arkreader.R;
 
 public class ShadowRectLayout extends LinearLayout {
@@ -31,12 +29,12 @@ public class ShadowRectLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
 
         //noinspection resource
-        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.ShadowRectLayout);
-        int rectColor = attributes.getColor(R.styleable.ShadowRectLayout_rectColor, Color.TRANSPARENT);
-        int shadowColor = attributes.getColor(R.styleable.ShadowRectLayout_shadowColor, Color.TRANSPARENT);
-        float shadowRadius = attributes.getDimension(R.styleable.ShadowRectLayout_shadowRadius, 0f);
-        float shadowDx = attributes.getDimension(R.styleable.ShadowRectLayout_shadowDx, -1);
-        float shadowDy = attributes.getDimension(R.styleable.ShadowRectLayout_shadowDy, -1);
+        var attributes = context.obtainStyledAttributes(attrs, R.styleable.ShadowRectLayout);
+        var rectColor = attributes.getColor(R.styleable.ShadowRectLayout_rectColor, Color.TRANSPARENT);
+        var shadowColor = attributes.getColor(R.styleable.ShadowRectLayout_shadowColor, Color.TRANSPARENT);
+        var shadowRadius = attributes.getDimension(R.styleable.ShadowRectLayout_shadowRadius, 0f);
+        var shadowDx = attributes.getDimension(R.styleable.ShadowRectLayout_shadowDx, -1);
+        var shadowDy = attributes.getDimension(R.styleable.ShadowRectLayout_shadowDy, -1);
         attributes.recycle();
 
         setLayerType(LAYER_TYPE_SOFTWARE, null);
@@ -64,10 +62,10 @@ public class ShadowRectLayout extends LinearLayout {
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-        float left = getPaddingLeft() - mOriginalPaddingLeft;
-        float top = getPaddingTop() - mOriginalPaddingTop;
-        float right = getWidth() - getPaddingRight() + mOriginalPaddingRight;
-        float bottom = getHeight() - getPaddingBottom() + mOriginalPaddingBottom;
+        var left = getPaddingLeft() - mOriginalPaddingLeft;
+        var top = getPaddingTop() - mOriginalPaddingTop;
+        var right = getWidth() - getPaddingRight() + mOriginalPaddingRight;
+        var bottom = getHeight() - getPaddingBottom() + mOriginalPaddingBottom;
         canvas.drawRect(left, top, right, bottom, mPaint);
         super.dispatchDraw(canvas);
     }
