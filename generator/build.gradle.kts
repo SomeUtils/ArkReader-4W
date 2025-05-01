@@ -12,6 +12,7 @@ repositories {
 dependencies {
     implementation(gradleApi())
     implementation("com.android.tools.build:gradle:${libs.versions.android.gradle.plugin.get()}")
+    implementation(libs.square.javapoet)
 }
 
 gradlePlugin {

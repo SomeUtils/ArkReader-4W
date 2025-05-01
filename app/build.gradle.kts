@@ -1,8 +1,8 @@
 import java.time.LocalDate
 
 plugins {
-    alias(libs.plugins.generator)
     alias(libs.plugins.android.application)
+    alias(libs.plugins.generator)
 }
 
 android {
