@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
-import lombok.var;
+import lombok.val;
 import vip.cdms.arkreader.R;
 
 public class ShadowRectLayout extends LinearLayout {
@@ -29,12 +29,12 @@ public class ShadowRectLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
 
         //noinspection resource
-        var attributes = context.obtainStyledAttributes(attrs, R.styleable.ShadowRectLayout);
-        var rectColor = attributes.getColor(R.styleable.ShadowRectLayout_rectColor, Color.TRANSPARENT);
-        var shadowColor = attributes.getColor(R.styleable.ShadowRectLayout_shadowColor, Color.TRANSPARENT);
-        var shadowRadius = attributes.getDimension(R.styleable.ShadowRectLayout_shadowRadius, 0f);
-        var shadowDx = attributes.getDimension(R.styleable.ShadowRectLayout_shadowDx, -1);
-        var shadowDy = attributes.getDimension(R.styleable.ShadowRectLayout_shadowDy, -1);
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.ShadowRectLayout);
+        val rectColor = attributes.getColor(R.styleable.ShadowRectLayout_rectColor, Color.TRANSPARENT);
+        val shadowColor = attributes.getColor(R.styleable.ShadowRectLayout_shadowColor, Color.TRANSPARENT);
+        val shadowRadius = attributes.getDimension(R.styleable.ShadowRectLayout_shadowRadius, 0f);
+        val shadowDx = attributes.getDimension(R.styleable.ShadowRectLayout_shadowDx, -1);
+        val shadowDy = attributes.getDimension(R.styleable.ShadowRectLayout_shadowDy, -1);
         attributes.recycle();
 
         setLayerType(LAYER_TYPE_SOFTWARE, null);
@@ -62,10 +62,10 @@ public class ShadowRectLayout extends LinearLayout {
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-        var left = getPaddingLeft() - mOriginalPaddingLeft;
-        var top = getPaddingTop() - mOriginalPaddingTop;
-        var right = getWidth() - getPaddingRight() + mOriginalPaddingRight;
-        var bottom = getHeight() - getPaddingBottom() + mOriginalPaddingBottom;
+        val left = getPaddingLeft() - mOriginalPaddingLeft;
+        val top = getPaddingTop() - mOriginalPaddingTop;
+        val right = getWidth() - getPaddingRight() + mOriginalPaddingRight;
+        val bottom = getHeight() - getPaddingBottom() + mOriginalPaddingBottom;
         canvas.drawRect(left, top, right, bottom, mPaint);
         super.dispatchDraw(canvas);
     }

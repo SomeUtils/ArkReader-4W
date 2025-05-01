@@ -13,7 +13,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import lombok.SneakyThrows;
 import lombok.val;
-import lombok.var;
 import vip.cdms.arkreader.R;
 import vip.cdms.arkreader.databinding.ActivityMainBinding;
 import vip.cdms.arkreader.ui.main.fragments.*;

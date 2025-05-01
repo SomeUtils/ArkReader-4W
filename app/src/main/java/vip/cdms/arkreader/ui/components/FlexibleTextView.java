@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
-import lombok.var;
+import lombok.val;
 import vip.cdms.arkreader.R;
 
 public class FlexibleTextView extends AppCompatTextView {
@@ -25,7 +25,7 @@ public class FlexibleTextView extends AppCompatTextView {
         super(context, attrs, defStyleAttr);
 
         //noinspection resource
-        var attributes = context.obtainStyledAttributes(attrs, R.styleable.FlexibleTextView);
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.FlexibleTextView);
         fontWeight = attributes.getFloat(R.styleable.FlexibleTextView_textWeight, -1f);
         attributes.recycle();
     }
@@ -36,8 +36,8 @@ public class FlexibleTextView extends AppCompatTextView {
             super.onDraw(canvas);
             return;
         }
-        var strokeWidth = getPaint().getStrokeWidth();
-        var style = getPaint().getStyle();
+        val strokeWidth = getPaint().getStrokeWidth();
+        val style = getPaint().getStyle();
         getPaint().setStrokeWidth(fontWeight);
         getPaint().setStyle(Paint.Style.FILL_AND_STROKE);
         super.onDraw(canvas);

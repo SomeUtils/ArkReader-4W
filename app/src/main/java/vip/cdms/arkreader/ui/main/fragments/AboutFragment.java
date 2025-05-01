@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import lombok.var;
+import lombok.val;
 import vip.cdms.arkreader.BuildConfig;
 import vip.cdms.arkreader.databinding.FragmentAboutBinding;
 
@@ -16,7 +16,7 @@ public class AboutFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        var binding = FragmentAboutBinding.inflate(inflater);
+        val binding = FragmentAboutBinding.inflate(inflater);
 
         binding.versionApp.setText(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
 

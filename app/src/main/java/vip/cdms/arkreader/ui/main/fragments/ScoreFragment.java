@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import lombok.var;
+import lombok.val;
 import vip.cdms.arkreader.databinding.FragmentScoreBinding;
 
 public class ScoreFragment extends Fragment {
@@ -16,7 +16,7 @@ public class ScoreFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentScoreBinding.inflate(inflater);
-        var root = binding.getRoot();
+        val root = binding.getRoot();
 //        root.post(() -> root.setBackground(createPolkaDotBackground(root.getWidth(), root.getHeight())));
         return root;
     }
