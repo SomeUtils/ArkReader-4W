@@ -1,3 +1,4 @@
+import vip.cdms.arkreader.gradle.utils.runCommand
 import java.time.LocalDate
 
 plugins {
@@ -14,7 +15,7 @@ android {
         minSdk = 21
         targetSdk = 35
         versionCode = libs.versions.arkreader.core.code.get().toInt()
-        versionName = libs.versions.arkreader.core.version.get()
+        versionName = libs.versions.arkreader.core.version.get().attachToCIVersion()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,6 +27,7 @@ android {
         }
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -39,7 +41,7 @@ android {
             applicationIdSuffix = ".offline"
             val today = LocalDate.now()
             versionCode = today.year * 10000 + today.monthValue * 100 + today.dayOfMonth
-            versionName = "%d.%02d.%02d".format(today.year, today.monthValue, today.dayOfMonth)
+            versionName = "%d.%02d.%02d".format(today.year, today.monthValue, today.dayOfMonth).attachToCIVersion()
         }
     }
 
@@ -52,6 +54,17 @@ android {
         buildConfig = true
         viewBinding = true
     }
+
+    lint {
+        disable += "OldTargetApi"
+    }
+}
+
+fun String.attachToCIVersion() = if (System.getenv("CI") != "true") this else run {
+    val branch = System.getenv("GITHUB_REF_NAME")
+        ?: runCommand("git rev-parse --abbrev-ref HEAD")
+    val hash = runCommand("git rev-parse --short HEAD")
+    "$this ($branch-$hash)"
 }
 
 dependencies {
