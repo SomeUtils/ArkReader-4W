@@ -3,15 +3,14 @@ plugins {
     `java-gradle-plugin`
 }
 
-repositories {
-    google()
-    mavenCentral()
-    gradlePluginPortal()
-}
-
 dependencies {
     implementation(gradleApi())
     implementation("com.android.tools.build:gradle:${libs.versions.android.gradle.plugin.get()}")
+
+    implementation(project(":resource-structure"))
+    implementation(project(":resource-network"))
+    implementation(libs.eclipsesource.minimal.json)
+
     implementation(libs.square.javapoet)
 }
 

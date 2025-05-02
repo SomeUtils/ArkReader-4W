@@ -4,10 +4,10 @@ import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.TypeSpec
 import vip.cdms.arkreader.gradle.GeneratedPackage
-import vip.cdms.arkreader.gradle.utils.IGenerateTask
+import vip.cdms.arkreader.gradle.utils.GenerateTask
 import javax.lang.model.element.Modifier
 
-abstract class GenTestJava : IGenerateTask() {
+abstract class GenTestJavaTask : GenerateTask() {
     override fun generate() {
         val greet = MethodSpec.methodBuilder("greet")
             .addModifiers(Modifier.PUBLIC, Modifier.STATIC)

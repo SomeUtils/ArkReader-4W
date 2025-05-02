@@ -7,7 +7,7 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.nio.file.Path
 
-abstract class IGenerateTask : DefaultTask() {
+abstract class GenerateTask : DefaultTask() {
     @get:OutputDirectory
     abstract val srcDir: DirectoryProperty
 
