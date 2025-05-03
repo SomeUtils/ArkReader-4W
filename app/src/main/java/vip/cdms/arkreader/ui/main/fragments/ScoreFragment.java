@@ -1,17 +1,20 @@
 package vip.cdms.arkreader.ui.main.fragments;
 
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import lombok.val;
-import vip.cdms.arkreader.data.ResourceAccessor;
-import vip.cdms.arkreader.data.ResourceHelper;
+import vip.cdms.arkreader.R;
 import vip.cdms.arkreader.databinding.FragmentScoreBinding;
+import vip.cdms.arkreader.ui.components.GlowSelectorBar;
+import vip.cdms.arkreader.ui.utils.FadedHorizontalScroll;
+import vip.cdms.arkreader.ui.utils.UnitUtils;
+import vip.cdms.arkreader.ui.utils.ViewUtils;
 
 public class ScoreFragment extends Fragment {
     private FragmentScoreBinding binding;
@@ -19,46 +22,32 @@ public class ScoreFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentScoreBinding.inflate(inflater);
-        val root = binding.getRoot();
+        val context = binding.getRoot().getContext();
+        val colorAppContent = ContextCompat.getColor(context, R.color.app_content);
+        val colorAppBackground = ContextCompat.getColor(context, R.color.app_background);
 
-        // FIXME: delete (for test)
-        new Thread(() -> {
-            val cover = ResourceHelper.decodeImage(
-                    ResourceAccessor.INSTANCE.getScore()
-                            .getSortedEvents()[0]
-                            .getCoverImage()
-            );
-            binding.getRoot().post(() -> {
-                val drawable = new BitmapDrawable(getResources(), cover);
-                binding.getRoot().setBackground(drawable);
-            });
-        }).start();
+        val eventTypeSelector = new GlowSelectorBar(context);
+        ViewUtils.setNoClipChildren(eventTypeSelector);
+        eventTypeSelector.setBarForeground(colorAppContent);
+        eventTypeSelector.setBarBackground(colorAppBackground);
+        eventTypeSelector.addItem("\ue901", "主题曲");
+        eventTypeSelector.addItem("\ue903", "别传");
+        eventTypeSelector.addItem("\ue904", "故事集");
+        eventTypeSelector.toggleItem(0);
+        eventTypeSelector.setOnToggleListener((index, before) -> {
+            if (eventTypeSelector.getSelectedIndexes().size() < 2) return true;
+            return !before;
+        });
+        val eventTypeSelectorWrapped = FadedHorizontalScroll.attach(
+                eventTypeSelector,
+                getResources().getDimensionPixelSize(R.dimen.main_appbar_padding_horizontal),
+                colorAppBackground,
+                UnitUtils.dp2px(context, 36),
+                UnitUtils.dp2px(context, -5)
+        );
+        ViewUtils.setNoClipChildren(eventTypeSelectorWrapped);
+        binding.content.addView(eventTypeSelectorWrapped, 0);
 
-//        root.post(() -> root.setBackground(createPolkaDotBackground(root.getWidth(), root.getHeight())));
-        return root;
+        return binding.getRoot();
     }
-
-//    public Drawable createPolkaDotBackground(int width, int height) {
-//        var paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-//        paint.setColor(0x8800ff00);
-//        var spacing = 30;
-//        var dotRadius = 5f;
-//        var clippedRadius = width * .6f;
-//
-//        var bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-//        var canvas = new Canvas(bitmap);
-//        for (int x = 0; x < width + spacing; x += spacing) {
-//            for (int y = 0; y < height + spacing; y += spacing)
-//                canvas.drawCircle(x, y, dotRadius -= .01f, paint);
-//        }
-//
-//        var clippedBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-//        var clippedCanvas = new Canvas(clippedBitmap);
-//        var clippedPath = new Path();
-//        clippedPath.addCircle(0, height, clippedRadius, Path.Direction.CW);
-//        clippedCanvas.clipPath(clippedPath);
-//        clippedCanvas.drawBitmap(bitmap, 0, 0, null);
-//
-//        return new BitmapDrawable(getResources(), clippedBitmap);
-//    }
 }

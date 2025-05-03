@@ -5,10 +5,10 @@
     </declare-styleable>
 
     <declare-styleable name="ShadowRectLayout">
-        <attr name="rectColor" format="color"/>
-        <attr name="shadowColor" format="color"/>
-        <attr name="shadowRadius" format="dimension"/>
-        <attr name="shadowDx" format="dimension"/>
-        <attr name="shadowDy" format="dimension"/>
+        <attr name="rectColor" format="color" />
+        <attr name="shadowColor" format="color" />
+        <attr name="shadowRadius" format="dimension" />
+        <attr name="shadowDx" format="dimension" />
+        <attr name="shadowDy" format="dimension" />
     </declare-styleable>
 </resources>
