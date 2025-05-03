@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 
 include(":resource-structure")
 include(":resource-network")
-include(":plugin")
+include(":plugin-offline")

@@ -3,6 +3,7 @@ package vip.cdms.arkreader.resource.network;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.val;
+import vip.cdms.arkreader.resource.utils.IOUtils;
 
 import java.io.*;
 
@@ -11,34 +12,24 @@ public class NetworkCache {
     private final File root;
 
     public File getFile(String url) {
-        val name = Integer.toHexString(url.hashCode());
-        return new File(root, name);
+        return new File(root, getFileName(url));
+    }
+    public String getFileName(String url) {
+        return Integer.toHexString(url.hashCode());
     }
 
+    @SneakyThrows
     public byte[] get(String url) {
         val file = getFile(url);
-        if (!file.exists()) return null;
-
-        try (val stream = new FileInputStream(file);
-             val buffer = new ByteArrayOutputStream()) {
-            val data = new byte[8192]; // 8 KB
-            int bytesRead;
-            while ((bytesRead = stream.read(data)) != -1)
-                buffer.write(data, 0, bytesRead);
-            return buffer.toByteArray();
-        } catch (IOException e) {
-            return null;
-        }
+        if (file == null || !file.exists()) return null;
+        return IOUtils.readAllOrNull(new FileInputStream(file));
     }
 
     @SneakyThrows
     public void set(String url, byte[] content) {
         val file = getFile(url);
-        //noinspection ResultOfMethodCallIgnored
-        file.getParentFile().mkdirs();
-        val stream = new FileOutputStream(file);
-        stream.write(content);
-        stream.close();
+        if (file == null) return;
+        IOUtils.writeToFile(content, file);
     }
 
     public String getAsString(String url) {

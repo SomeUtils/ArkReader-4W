@@ -4,6 +4,7 @@ import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonValue;
 import lombok.SneakyThrows;
 import lombok.val;
+import vip.cdms.arkreader.resource.utils.IOUtils;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -56,16 +57,8 @@ public class Network {
 
         val connection = openConnection(url);
         val inputStream = connection.getInputStream();
-        val outputStream = new ByteArrayOutputStream();
-        val buffer = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = inputStream.read(buffer)) != -1)
-            outputStream.write(buffer, 0, bytesRead);
-
-        val bytes = outputStream.toByteArray();
+        val bytes = IOUtils.readAll(inputStream);
         if (cache != null) cache.set(url, bytes);
-        inputStream.close();
-        outputStream.close();
         connection.disconnect();
         return bytes;
     }

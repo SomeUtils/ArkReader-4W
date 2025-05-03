@@ -13,8 +13,8 @@ google-android-material = "1.12.0"
 
 [libraries]
 # common
-arkreader-resource-network = { module = "_:resource-network", version = "_" }
 arkreader-resource-structure = { module = "_:resource-structure", version = "_" }
+arkreader-resource-network = { module = "_:resource-network", version = "_" }
 projectlombok-lombok = { module = "org.projectlombok:lombok", version.ref = "projectlombok-lombok" }
 eclipsesource-minimal-json = { module = "com.eclipsesource.minimal-json:minimal-json", version = "0.9.5" }
 
