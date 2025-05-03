@@ -102,22 +102,28 @@ public class MainActivity extends AppCompatActivity {
             v.postDelayed(() -> v.setBackgroundColor(rippleColor), 250);
             ((ScrollView) binding.drawerContentList.getParent()).smoothScrollTo(0, v.getTop());
 
-            fragment = getOrNewFragment(clazz);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out)
-                    .replace(R.id.fragment_container, fragment)
-                    .commit();
+            val transaction = getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out);
+            transaction.hide(fragment);
+            fragment = fragments.get(clazz);
+            if (fragment == null) {
+                fragments.put(clazz, fragment = getOrNewFragment(clazz));
+                transaction.add(R.id.fragment_container, fragment);
+            } else transaction.show(fragment);
+            transaction.commit();
+
             binding.drawerLayout.closeDrawer(GravityCompat.START);
         });
         binding.drawerContentList.addView(textView);
 
-        if (isFirstFragment) getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragment_container, fragment = getOrNewFragment(clazz))
-                .show(fragment)
-                .commit();
-        else fragments.put(clazz, null);
+        if (isFirstFragment) {
+            fragments.put(clazz, fragment = getOrNewFragment(clazz));
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .show(fragment)
+                    .commit();
+        } else fragments.put(clazz, null);
     }
 
     @Override
