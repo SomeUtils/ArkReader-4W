@@ -4,4 +4,5 @@
     <color name="app_content">#eeFFFFFF</color>
     <color name="drawer_background">#FFFEFEFE</color>
     <color name="drawer_content">#ee000000</color>
+    <color name="accent_red">#ffdc3023</color>
 </resources>

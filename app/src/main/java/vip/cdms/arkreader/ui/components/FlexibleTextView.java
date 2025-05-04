@@ -7,11 +7,13 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+import lombok.Setter;
 import lombok.val;
 import vip.cdms.arkreader.R;
 
+@Setter
 public class FlexibleTextView extends AppCompatTextView {
-    private final float fontWeight;
+    private float fontWeight;
 
     public FlexibleTextView(@NonNull Context context) {
         this(context, null);

@@ -57,7 +57,7 @@ public class AppScoreImpl implements AppScore {
                     storySet.get("relevantActivityId").asString();
             val eventBuilder = eventBuildersWithId.get(eventId);
             eventBuilder.appCategorySort(year * 114 + storySet.getInt("sortWithinYear", 0));
-            eventBuilder.appCategory("YEAR - " + year);
+            eventBuilder.appCategory("YEAR-" + year);
             events.add(eventBuilder.build());
         }
         Collections.sort(events, (a, b) ->

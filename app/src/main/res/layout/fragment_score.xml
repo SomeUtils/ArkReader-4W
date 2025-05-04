@@ -16,41 +16,6 @@
         android:clipChildren="false"
         android:clipToPadding="false">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:paddingHorizontal="@dimen/main_appbar_padding_horizontal"
-            tools:ignore="RtlSymmetry">
-
-            <View
-                android:layout_width="4dp"
-                android:layout_height="4dp"
-                android:translationY="2dp"
-                android:background="#dc3023"
-                android:alpha=".2" />
-
-            <vip.cdms.arkreader.ui.components.FlexibleTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="YEAR-1"
-                android:textColor="#fff"
-                android:textSize="20sp"
-                android:letterSpacing=".3"
-                android:alpha=".2"
-                app:textWeight="5"
-                tools:ignore="HardcodedText" />
-
-<!--            <View-->
-<!--                android:layout_width="4dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_marginStart="3dp"-->
-<!--                android:translationY="5dp"-->
-<!--                android:background="#fff"-->
-<!--                android:alpha=".2" />-->
-        </LinearLayout>
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
