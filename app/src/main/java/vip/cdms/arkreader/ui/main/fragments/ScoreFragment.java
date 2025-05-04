@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,7 +32,6 @@ import vip.cdms.arkreader.data.ResourceHelper;
 import vip.cdms.arkreader.databinding.FragmentScoreBinding;
 import vip.cdms.arkreader.resource.Event;
 import vip.cdms.arkreader.resource.EventType;
-import vip.cdms.arkreader.resource.utils.MapUtils;
 import vip.cdms.arkreader.ui.components.FlexibleTextView;
 import vip.cdms.arkreader.ui.components.GlowSelectorBar;
 import vip.cdms.arkreader.ui.utils.FadedHorizontalScroll;
@@ -43,6 +41,7 @@ import vip.cdms.arkreader.ui.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class ScoreFragment extends Fragment {
     private FragmentScoreBinding binding;
@@ -53,7 +52,7 @@ public class ScoreFragment extends Fragment {
     private boolean showSideStory = false;
     private boolean showStorySet = false;
 
-    private final HashMap<String, EventsAdapter> categories = new HashMap<>();
+    private final LinkedHashMap<String, EventsAdapter> categories = new LinkedHashMap<>();
     private final HashMap<String, ArrayList<Event>> classedEventsMap = new HashMap<>();
 
     public static String ICON_MAIN_THEME = "\ue901",
@@ -125,7 +124,10 @@ public class ScoreFragment extends Fragment {
     }
 
     private void regroup() {
-        MapUtils.forEach(categories, (category, adapter) -> {
+        var i = 0;
+        for (val entry : categories.entrySet()) {
+            val category = entry.getKey();
+            val adapter = entry.getValue();
             val shownEvents = new ArrayList<Event>();
             //noinspection DataFlowIssue
             for (val event : classedEventsMap.get(category)) {
@@ -134,7 +136,9 @@ public class ScoreFragment extends Fragment {
                 if (showStorySet && event.getType() == EventType.STORY_SET) shownEvents.add(event);
             }
             adapter.updateEvents(shownEvents.toArray(new Event[0]));
-        });
+            binding.content.getChildAt(i * 2 + 1).setVisibility(shownEvents.isEmpty() ? View.GONE : View.VISIBLE);
+            i++;
+        }
     }
 
     private LinearLayout createTitleView(String title, int marginTop) {
@@ -194,7 +198,10 @@ public class ScoreFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NotNull EventViewHolder holder, int position) {
             val event = events[position];
-            ViewCompat.setTooltipText(holder.itemView, event.getName());
+            holder.itemView.setOnLongClickListener(v -> {
+                ViewUtils.showTooltip(v, event.getName());
+                return true;
+            });
             holder.iconView.setText(switch (event.getType()) {
                 case MAIN_THEME -> ICON_MAIN_THEME;
                 case SIDE_STORY -> ICON_SIDE_STORY;
