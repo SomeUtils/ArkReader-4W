@@ -5,7 +5,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import androidx.annotation.ColorInt;
 import androidx.core.content.ContextCompat;
@@ -14,7 +13,7 @@ import vip.cdms.arkreader.R;
 
 public class FadedHorizontalScroll {
     public static FrameLayout attach(
-            HorizontalScrollView scrollView,
+            ViewGroup scrollView,
             int fadeWidth,
             @ColorInt int fadeTint
     ) {
@@ -22,7 +21,7 @@ public class FadedHorizontalScroll {
     }
 
     public static FrameLayout attach(
-            HorizontalScrollView scrollView,
+            ViewGroup scrollView,
             int fadeWidth,
             @ColorInt int fadeTint,
             int fadeHeight,

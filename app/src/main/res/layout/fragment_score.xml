@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,115 +11,18 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
         android:orientation="vertical"
         android:clipChildren="false"
         android:clipToPadding="false">
 
-        <FrameLayout
+        <TextView
+            android:id="@+id/loading"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-8dp"
-            tools:ignore="UselessParent">
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingHorizontal="@dimen/main_appbar_padding_horizontal">
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="-.4dp">
-
-                        <ImageView
-                            android:layout_width="@dimen/score_set_story_cover_size"
-                            android:layout_height="@dimen/score_set_story_cover_size"
-                            android:src="@drawable/test_1"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|end"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginEnd="4dp"
-                            android:fontFamily="@font/ak_terminal"
-                            android:text="&#xe901;"
-                            android:textSize="16sp"
-                            android:textColor="@color/app_content"
-                            tools:ignore="HardcodedText" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp">
-
-                        <ImageView
-                            android:layout_width="@dimen/score_set_story_cover_size"
-                            android:layout_height="@dimen/score_set_story_cover_size"
-                            android:src="@drawable/test_2"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|end"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginEnd="4dp"
-                            android:fontFamily="@font/ak_terminal"
-                            android:text="&#xe901;"
-                            android:textSize="16sp"
-                            android:textColor="@color/app_content"
-                            tools:ignore="HardcodedText" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp">
-
-                        <ImageView
-                            android:layout_width="@dimen/score_set_story_cover_size"
-                            android:layout_height="@dimen/score_set_story_cover_size"
-                            android:src="@drawable/test_3"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|end"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginEnd="4dp"
-                            android:fontFamily="@font/ak_terminal"
-                            android:text="&#xe901;"
-                            android:textSize="16sp"
-                            android:textColor="@color/app_content"
-                            tools:ignore="HardcodedText" />
-                    </FrameLayout>
-
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <View
-                android:layout_width="@dimen/main_appbar_padding_horizontal"
-                android:layout_height="match_parent"
-                android:background="@drawable/gradient_transparent_mask"
-                android:backgroundTint="@color/app_background" />
-
-            <View
-                android:layout_width="@dimen/main_appbar_padding_horizontal"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:scaleX="-1"
-                android:background="@drawable/gradient_transparent_mask"
-                android:backgroundTint="@color/app_background" />
-
-        </FrameLayout>
-
+            android:layout_height="32dp"
+            android:layout_marginStart="@dimen/main_appbar_padding_horizontal"
+            android:text="LOADING"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
