@@ -300,6 +300,7 @@ public class ScoreFragment extends Fragment {
 
         val layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
 
         val paddingHorizontal = getResources().getDimensionPixelSize(R.dimen.main_appbar_padding_horizontal);
         recyclerView.setPadding(paddingHorizontal - 1, 0, paddingHorizontal, 0);
