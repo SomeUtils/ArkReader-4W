@@ -44,7 +44,7 @@ class NetworkMapCache(root: File, private val imageRoot: File) : NetworkCache(ro
         super.set(url, content)
     }
 
-    private fun ByteArray.getKey() = toHexString(hashCode())
+    private fun ByteArray.getKey() = toHexString(contentHashCode())
 
     private fun isImageUrl(url: String) =
         imageExtensions.any { url.lowercase().endsWith(".$it") }
