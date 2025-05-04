@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.val;
 import vip.cdms.arkreader.R;
+import vip.cdms.arkreader.resource.utils.MapUtils;
 import vip.cdms.arkreader.ui.utils.UnitUtils;
 import vip.cdms.arkreader.ui.utils.ViewUtils;
 
@@ -36,7 +37,7 @@ public class GlowSelectorBar extends HorizontalScrollView {
 
     public ArrayList<Integer> getSelectedIndexes() {
         val selectedIndexes = new ArrayList<Integer>();
-        selectedIndexesMap.forEach((index, selected) -> {
+        MapUtils.forEach(selectedIndexesMap, (index, selected) -> {
             if (selected) selectedIndexes.add(index);
         });
         return selectedIndexes;
@@ -94,14 +95,13 @@ public class GlowSelectorBar extends HorizontalScrollView {
 
     public void toggleItem(int index) {
         val context = getContext();
-        val before = !Boolean.FALSE.equals(
-                selectedIndexesMap.getOrDefault(index, false));
+        val before = !Boolean.FALSE.equals(MapUtils.getOrDefault(selectedIndexesMap, index, false));
         selectedIndexesMap.put(index, onToggleListener.onToggle(index, before));
         container.removeAllViews();
         for (int i = 0; i < labels.size(); i++) {
             val iFixed = i;
             val selected = Boolean.TRUE.equals(
-                    selectedIndexesMap.getOrDefault(i, false));
+                    MapUtils.getOrDefault(selectedIndexesMap, i, false));
             val textIcon = textIcons.get(i);
             val drawableIcon = drawableIcons.get(i);
             val label = labels.get(i);
@@ -113,7 +113,7 @@ public class GlowSelectorBar extends HorizontalScrollView {
 
             View itemView;
             val isPreviousSelected = i - 1 >= 0 && Boolean.TRUE.equals(
-                    selectedIndexesMap.getOrDefault(i - 1, false));
+                    MapUtils.getOrDefault(selectedIndexesMap, i - 1, false));
             val marginStart = i == 0 ? 0 : (isPreviousSelected ? 0 : UnitUtils.dp2px(context, 8));
             if (selected) {
                 val marginEnd = i == labels.size() - 1 ? UnitUtils.dp2px(context, -8) : 0;
