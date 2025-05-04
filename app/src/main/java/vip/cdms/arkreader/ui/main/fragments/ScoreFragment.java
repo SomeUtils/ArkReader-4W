@@ -31,6 +31,8 @@ import vip.cdms.arkreader.data.ResourceAccessor;
 import vip.cdms.arkreader.data.ResourceHelper;
 import vip.cdms.arkreader.databinding.FragmentScoreBinding;
 import vip.cdms.arkreader.resource.Event;
+import vip.cdms.arkreader.resource.EventType;
+import vip.cdms.arkreader.resource.utils.MapUtils;
 import vip.cdms.arkreader.ui.components.FlexibleTextView;
 import vip.cdms.arkreader.ui.components.GlowSelectorBar;
 import vip.cdms.arkreader.ui.utils.FadedHorizontalScroll;
@@ -38,11 +40,20 @@ import vip.cdms.arkreader.ui.utils.HorizontalSpacingItemDecoration;
 import vip.cdms.arkreader.ui.utils.UnitUtils;
 import vip.cdms.arkreader.ui.utils.ViewUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class ScoreFragment extends Fragment {
     private FragmentScoreBinding binding;
     private Context context;
 
     private Event[] sortedEvents;
+    private boolean showMainTheme = true;
+    private boolean showSideStory = false;
+    private boolean showStorySet = false;
+
+    private final HashMap<String, EventsAdapter> categories = new HashMap<>();
+    private final HashMap<String, ArrayList<Event>> classedEventsMap = new HashMap<>();
 
     public static String ICON_MAIN_THEME = "\ue901",
             ICON_SIDE_STORY = "\ue903",
@@ -63,8 +74,14 @@ public class ScoreFragment extends Fragment {
         eventTypeSelector.addItem(ICON_STORY_SET, "故事集");
         eventTypeSelector.toggleItem(0);
         eventTypeSelector.setOnToggleListener((index, before) -> {
-            if (eventTypeSelector.getSelectedIndexes().size() < 2) return true;
-            return !before;
+            if (sortedEvents == null) return before;
+            var shown = !before;
+            if (eventTypeSelector.getSelectedIndexes().size() < 2) shown = true;
+            if (index == 0) showMainTheme = shown;
+            else if (index == 1) showSideStory = shown;
+            else showStorySet = shown;
+            regroup();
+            return shown;
         });
         val eventTypeSelectorWrapped = FadedHorizontalScroll.attach(
                 eventTypeSelector,
@@ -78,21 +95,53 @@ public class ScoreFragment extends Fragment {
 
         ResourceHelper.runThread(() -> {
             sortedEvents = ResourceAccessor.INSTANCE.getScore().getSortedEvents();
+            var isFirstCategory = true;
+            for (val event : sortedEvents) {
+                val category = event.getAppCategory();
+                var classedEvents = classedEventsMap.get(category);
+                if (classedEvents == null) {
+                    val isFirstCategoryFixed = isFirstCategory;
+                    isFirstCategory = false;
+                    classedEvents = new ArrayList<>();
+                    binding.content.post(() -> {
+                        binding.content.addView(createTitleView(category, isFirstCategoryFixed
+                                ? 0 : UnitUtils.dp2px(context, 8)));
+                        val eventsViewer = createEventsViewer(new Event[]{ event });
+                        binding.content.addView(eventsViewer.first);
+                        categories.put(category, eventsViewer.second);
+                    });
+                }
+                classedEvents.add(event);
+                classedEventsMap.put(category, classedEvents);
+            }
             binding.content.post(() -> {
                 binding.content.removeView(binding.loading);
-                binding.content.addView(createTitleView("YEAR-1"));
-                val eventsViewer = createEventsViewer(sortedEvents);
-                binding.content.addView(eventsViewer.first);
+                regroup();
             });
         });
 
         return binding.getRoot();
     }
 
-    private LinearLayout createTitleView(String title) {
+    private void regroup() {
+        MapUtils.forEach(categories, (category, adapter) -> {
+            val shownEvents = new ArrayList<Event>();
+            //noinspection DataFlowIssue
+            for (val event : classedEventsMap.get(category)) {
+                if (showMainTheme && event.getType() == EventType.MAIN_THEME) shownEvents.add(event);
+                if (showSideStory && event.getType() == EventType.SIDE_STORY) shownEvents.add(event);
+                if (showStorySet && event.getType() == EventType.STORY_SET) shownEvents.add(event);
+            }
+            adapter.updateEvents(shownEvents.toArray(new Event[0]));
+        });
+    }
+
+    private LinearLayout createTitleView(String title, int marginTop) {
         val linearLayout = new LinearLayout(context);
-        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        val layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, marginTop, 0, 0);
+        linearLayout.setLayoutParams(layoutParams);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setGravity(Gravity.END);
         val paddingHorizontal = getResources().getDimensionPixelSize(R.dimen.main_appbar_padding_horizontal);
@@ -115,6 +164,7 @@ public class ScoreFragment extends Fragment {
         flexibleTextView.setTextColor(Color.WHITE);
         flexibleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         flexibleTextView.setLetterSpacing(.3f);
+        flexibleTextView.setLineSpacing(-5, 1);
         flexibleTextView.setAlpha(.2f);
         flexibleTextView.setFontWeight(5);
 
@@ -124,7 +174,7 @@ public class ScoreFragment extends Fragment {
     }
 
     @AllArgsConstructor
-    private class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> {
+    private static class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> {
         private Event[] events;
 
         public void updateEvents(Event[] events) {
