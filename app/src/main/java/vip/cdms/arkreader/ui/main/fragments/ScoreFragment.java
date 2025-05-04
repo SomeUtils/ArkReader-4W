@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -193,6 +194,7 @@ public class ScoreFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NotNull EventViewHolder holder, int position) {
             val event = events[position];
+            ViewCompat.setTooltipText(holder.itemView, event.getName());
             holder.iconView.setText(switch (event.getType()) {
                 case MAIN_THEME -> ICON_MAIN_THEME;
                 case SIDE_STORY -> ICON_SIDE_STORY;
@@ -201,8 +203,8 @@ public class ScoreFragment extends Fragment {
             ResourceHelper.runThread(() -> {
                 val cover = ResourceHelper.decodeImage(event.getCoverImage());
                 holder.imageView.post(() -> {
-                    if (cover == null) holder.setName(event.getName());
-                    else holder.setBitmap(cover);
+                    if (cover == null) holder.showName(event.getName());
+                    else holder.showBitmap(cover);
                 });
             });
         }
@@ -268,12 +270,12 @@ public class ScoreFragment extends Fragment {
             frameLayout.addView(iconView);
         }
 
-        public void setBitmap(Bitmap bitmap) {
+        public void showBitmap(Bitmap bitmap) {
             if (nameView != null) ((FrameLayout) itemView).removeView(nameView);
             imageView.setImageBitmap(bitmap);
         }
 
-        public void setName(String name) {
+        public void showName(String name) {
             if (nameView == null) createName();
             imageView.setImageDrawable(null);
             nameView.setText(name);
