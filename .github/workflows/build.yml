@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - '**'
+  schedule:
+    - cron: '0 1 1 * *'
 
 jobs:
   build:
@@ -34,11 +36,48 @@ jobs:
       - name: Upload Unsigned APK (Offline)
         uses: actions/upload-artifact@v4
         with:
-          name: arkreader-offline-${{ github.sha }}
+          name: arkreader-offline-unsigned-${{ github.sha }}
           path: app/build/outputs/apk/offline/release/app-offline-release-unsigned.apk
 
       - name: Upload Unsigned APK (Online)
         uses: actions/upload-artifact@v4
         with:
-          name: arkreader-online-${{ github.sha }}
+          name: arkreader-online-unsigned-${{ github.sha }}
           path: app/build/outputs/apk/online/release/app-online-release-unsigned.apk
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: 'build-tools;34.0.0'
+
+      - name: Sign APKs
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > key.jks
+          
+          $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
+          --ks key.jks \
+          --ks-key-alias ${{ secrets.ANDROID_KEYSTORE_ALIAS }} \
+          --ks-pass pass:${{ secrets.ANDROID_KEYSTORE_PASSWORD }} \
+          --key-pass pass:${{ secrets.ANDROID_KEY_PASSWORD }} \
+          --out offline-signed.apk \
+          app/build/outputs/apk/offline/release/app-offline-release-unsigned.apk
+          
+          $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
+          --ks key.jks \
+          --ks-key-alias ${{ secrets.ANDROID_KEYSTORE_ALIAS }} \
+          --ks-pass pass:${{ secrets.ANDROID_KEYSTORE_PASSWORD }} \
+          --key-pass pass:${{ secrets.ANDROID_KEY_PASSWORD }} \
+          --out online-signed.apk \
+          app/build/outputs/apk/online/release/app-online-release-unsigned.apk
+
+      - name: Upload Signed APK (Offline)
+        uses: actions/upload-artifact@v4
+        with:
+          name: arkreader-offline-${{ github.sha }}
+          path: offline-signed.apk
+
+      - name: Upload Signed APK (Online)
+        uses: actions/upload-artifact@v4
+        with:
+          name: arkreader-online-${{ github.sha }}
+          path: online-signed.apk
