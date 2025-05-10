@@ -5,7 +5,10 @@
 
 > 专为智能手表设计的轻量级、高效且低功耗的明日方舟阅读器
 
-WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP
+> [!NOTE]
+> 由于外服游戏内容与国服存在较大滞后，故本项目被设计为**简体中文硬编码**！
+
+WIP WIP WIP WIP WIP WIP WIP WIP WIP
 
 ## 📢 特别致谢
 
