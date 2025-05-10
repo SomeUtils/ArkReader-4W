@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import lombok.Getter;
 import vip.cdms.arkreader.generated.AppScoreImpl;
+import vip.cdms.arkreader.resource.AppOperator;
 import vip.cdms.arkreader.resource.AppScore;
 
 public class ResourceAccessor implements IResourceAccessor {
@@ -17,4 +18,6 @@ public class ResourceAccessor implements IResourceAccessor {
 
     @Getter
     private final AppScore score = AppScoreImpl.INSTANCE;
+    @Getter
+    private final AppOperator operator = null;
 }
