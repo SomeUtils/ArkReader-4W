@@ -11,5 +11,5 @@ public interface Event extends WordCountable {
 
     long getStartTime();
 
-    StoryInfo[] getStories();
+    EventStoryInfo[] getStories();
 }

@@ -2,7 +2,7 @@ package vip.cdms.arkreader.resource;
 
 import vip.cdms.arkreader.resource.story.StoryContent;
 
-public interface StoryInfo extends WordCountable {
+public interface EventStoryInfo extends WordCountable {
     String getName();
 
     String getAvgName();

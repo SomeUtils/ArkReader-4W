@@ -2,11 +2,11 @@ package vip.cdms.arkreader.data.implement;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import vip.cdms.arkreader.resource.StoryInfo;
+import vip.cdms.arkreader.resource.EventStoryInfo;
 
 @Getter
 @RequiredArgsConstructor
-public abstract class StoryInfoImpl implements StoryInfo {
+public abstract class EventStoryInfoImpl implements EventStoryInfo {
     private final String name;
     private final String avgName;
     private final String summary;

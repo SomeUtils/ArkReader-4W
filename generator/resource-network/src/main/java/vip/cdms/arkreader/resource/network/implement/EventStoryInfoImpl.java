@@ -2,14 +2,14 @@ package vip.cdms.arkreader.resource.network.implement;
 
 import lombok.Builder;
 import lombok.Getter;
-import vip.cdms.arkreader.resource.StoryInfo;
+import vip.cdms.arkreader.resource.EventStoryInfo;
 import vip.cdms.arkreader.resource.network.Network;
 import vip.cdms.arkreader.resource.network.ResourceRoots;
 import vip.cdms.arkreader.resource.story.StoryContent;
 
 @Builder
 @Getter
-public class StoryInfoImpl implements StoryInfo {
+public class EventStoryInfoImpl implements EventStoryInfo {
     private String storyGroup;
     private String storyTxt;
 

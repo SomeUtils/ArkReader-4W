@@ -5,7 +5,7 @@ import lombok.val;
 import vip.cdms.arkreader.resource.Event;
 import vip.cdms.arkreader.resource.AppScore;
 import vip.cdms.arkreader.resource.EventType;
-import vip.cdms.arkreader.resource.StoryInfo;
+import vip.cdms.arkreader.resource.EventStoryInfo;
 import vip.cdms.arkreader.resource.network.Network;
 import vip.cdms.arkreader.resource.network.ResourceRoots;
 
@@ -41,7 +41,7 @@ public class AppScoreImpl implements AppScore {
                     .coverImageUrl(coverImageUrl)
                     .type(type)
                     .startTime(event.get("startTime").asLong())
-                    .stories(getStoryInfos(event.get("infoUnlockDatas").asArray()));
+                    .stories(parseStoryInfos(event.get("infoUnlockDatas").asArray()));
             eventBuildersWithId.put(eventId, eventImplBuilder);
         }
 
@@ -72,13 +72,13 @@ public class AppScoreImpl implements AppScore {
         return events.toArray(new EventImpl[0]);
     }
 
-    private static StoryInfo[] getStoryInfos(JsonArray infoUnlockDatas) {
-        val infos = new StoryInfo[infoUnlockDatas.size()];
+    private static EventStoryInfo[] parseStoryInfos(JsonArray infoUnlockDatas) {
+        val infos = new EventStoryInfo[infoUnlockDatas.size()];
         for (int i = 0; i < infoUnlockDatas.size(); i++) {
             val storyInfo = infoUnlockDatas.get(i).asObject();
             val storyCode = storyInfo.get("storyCode").asString();
             val avgTag = storyInfo.get("avgTag").asString();
-            infos[i] = StoryInfoImpl.builder()
+            infos[i] = EventStoryInfoImpl.builder()
                     .storyGroup(storyInfo.get("storyGroup").asString())
                     .storyTxt(storyInfo.get("storyTxt").asString())
                     .name(storyInfo.get("storyName").asString())

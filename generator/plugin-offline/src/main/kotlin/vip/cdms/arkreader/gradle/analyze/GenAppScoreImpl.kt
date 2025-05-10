@@ -6,7 +6,7 @@ import vip.cdms.arkreader.gradle.utils.createSingletonField
 import vip.cdms.arkreader.gradle.utils.overrideMethod
 import vip.cdms.arkreader.resource.AppScore
 import vip.cdms.arkreader.resource.EventType
-import vip.cdms.arkreader.resource.StoryInfo
+import vip.cdms.arkreader.resource.EventStoryInfo
 import vip.cdms.arkreader.resource.network.implement.AppScoreImpl
 import vip.cdms.arkreader.resource.story.StoryContent
 import javax.lang.model.element.Modifier
@@ -23,7 +23,7 @@ class GenAppScoreImpl(private val context: StaticContext) {
         val getStoriesMethods = sortedEvents.mapIndexed { i, event ->
             MethodSpec.methodBuilder("getStories$i")
                 .addModifiers(Modifier.PRIVATE)
-                .returns(ArrayTypeName.of(StaticContext.StoryInfoImplClass))
+                .returns(ArrayTypeName.of(StaticContext.EventStoryInfoImplClass))
                 .addCode(generateGetStoriesCode(event.stories))
                 .build()
         }
@@ -52,7 +52,7 @@ class GenAppScoreImpl(private val context: StaticContext) {
             )
             indent()
             add("@Override\n")
-            add("public \$T[] getStories() {\n", StaticContext.StoryInfoImplClass)
+            add("public \$T[] getStories() {\n", StaticContext.EventStoryInfoImplClass)
             indent()
             add("return getStories$i();\n")
             unindent()
@@ -65,13 +65,13 @@ class GenAppScoreImpl(private val context: StaticContext) {
         build()
     }
 
-    private fun generateGetStoriesCode(stories: Array<StoryInfo>) = with(CodeBlock.builder()) {
-        add("return new \$T[] {\n", StaticContext.StoryInfoImplClass)
+    private fun generateGetStoriesCode(stories: Array<EventStoryInfo>) = with(CodeBlock.builder()) {
+        add("return new \$T[] {\n", StaticContext.EventStoryInfoImplClass)
         indent()
         stories.forEach { story ->
             add(
                 "new \$T(\$S, \$S, \$S, \$L) {\n",
-                StaticContext.StoryInfoImplClass, story.name, story.avgName, story.summary, story.wordcount
+                StaticContext.EventStoryInfoImplClass, story.name, story.avgName, story.summary, story.wordcount
             )
             indent()
             add("@Override\n")

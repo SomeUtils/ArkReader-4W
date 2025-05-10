@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.val;
 import vip.cdms.arkreader.resource.Event;
 import vip.cdms.arkreader.resource.EventType;
-import vip.cdms.arkreader.resource.StoryInfo;
+import vip.cdms.arkreader.resource.EventStoryInfo;
 import vip.cdms.arkreader.resource.network.Network;
 import vip.cdms.arkreader.resource.network.ResourceRoots;
 
@@ -20,7 +20,7 @@ public class EventImpl implements Event {
     private EventType type;
     private String appCategory;
     private long startTime;
-    private StoryInfo[] stories;
+    private EventStoryInfo[] stories;
 
     @Override
     public byte[] getCoverImage() {

@@ -31,6 +31,6 @@ class StaticContext(
 
     companion object {
         val EventImplClass: ClassName = ClassName.get("vip.cdms.arkreader.data.implement", "EventImpl")
-        val StoryInfoImplClass: ClassName = ClassName.get("vip.cdms.arkreader.data.implement", "StoryInfoImpl")
+        val EventStoryInfoImplClass: ClassName = ClassName.get("vip.cdms.arkreader.data.implement", "EventStoryInfoImpl")
     }
 }
