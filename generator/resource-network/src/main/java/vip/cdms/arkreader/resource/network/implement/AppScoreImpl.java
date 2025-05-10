@@ -88,8 +88,8 @@ public class AppScoreImpl implements AppScore {
         return infos;
     }
 
-    private static final String funcJs = "https://raw.githubusercontent.com" +
-            "/050644zf/ArknightsStoryTextReader/refs/heads/master/reader/src/ASTRv2/func.js";
+    private static final String funcJs = ResourceRoots.github("https://raw.githubusercontent.com" +
+            "/050644zf/ArknightsStoryTextReader/refs/heads/master/reader/src/ASTRv2/func.js");
     private static final Pattern collabArrayBlockPattern = Pattern.compile("collab:\\s*\\[([\\s\\S]*?)]");
     private static String[] getCollaborationEventIds() {
         val jsContent = Network.fetchString(funcJs);
