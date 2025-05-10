@@ -82,7 +82,7 @@ public class AppScoreImpl implements AppScore {
                     .storyGroup(storyInfo.get("storyGroup").asString())
                     .storyTxt(storyInfo.get("storyTxt").asString())
                     .name(storyInfo.get("storyName").asString())
-                    .stageName(storyCode.isBlank() ? avgTag : (storyCode + " " + avgTag))
+                    .avgName(storyCode.isBlank() ? avgTag : (storyCode + " " + avgTag))
                     .build();
         }
         return infos;

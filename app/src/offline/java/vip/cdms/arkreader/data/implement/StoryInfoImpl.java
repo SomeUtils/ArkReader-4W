@@ -8,7 +8,7 @@ import vip.cdms.arkreader.resource.StoryInfo;
 @RequiredArgsConstructor
 public abstract class StoryInfoImpl implements StoryInfo {
     private final String name;
-    private final String stageName;
+    private final String avgName;
     private final String summary;
     private final int wordcount;
 }

@@ -14,7 +14,7 @@ public class StoryInfoImpl implements StoryInfo {
     private String storyTxt;
 
     private String name;
-    private String stageName;
+    private String avgName;
 
     @Override
     public String getSummary() {

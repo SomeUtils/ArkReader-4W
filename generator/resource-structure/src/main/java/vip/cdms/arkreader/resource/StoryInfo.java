@@ -5,7 +5,7 @@ import vip.cdms.arkreader.resource.story.StoryContent;
 public interface StoryInfo extends WordCountable {
     String getName();
 
-    String getStageName();
+    String getAvgName();
 
     String getSummary();
 

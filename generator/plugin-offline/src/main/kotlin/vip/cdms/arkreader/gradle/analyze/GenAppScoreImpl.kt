@@ -71,7 +71,7 @@ class GenAppScoreImpl(private val context: StaticContext) {
         stories.forEach { story ->
             add(
                 "new \$T(\$S, \$S, \$S, \$L) {\n",
-                StaticContext.StoryInfoImplClass, story.name, story.stageName, story.summary, story.wordcount
+                StaticContext.StoryInfoImplClass, story.name, story.avgName, story.summary, story.wordcount
             )
             indent()
             add("@Override\n")
