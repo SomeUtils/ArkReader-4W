@@ -42,12 +42,13 @@ public class Network {
         return body;
     }
 
-    public static byte[] fetchRawOrNull(String url) {
-        try {
-            return fetchRaw(url);
-        } catch (Exception e) {
-            return null;
-        }
+    public static byte[] fetchRawOrNull(String... urls) {
+        for (val url : urls)
+            try {
+                return fetchRaw(url);
+            } catch (Exception ignored) {
+            }
+        return null;
     }
 
     @SneakyThrows
