@@ -1,13 +1,18 @@
 package vip.cdms.arkreader.resource;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import vip.cdms.arkreader.resource.story.StoryContent;
 
-public record OperatorRecord(
-        String storySetName,
-        Avg[] avgList
-) {
+@SuppressWarnings("ClassCanBeRecord")
+@RequiredArgsConstructor
+@Getter
+public class OperatorRecord {
+    private final String storySetName;
+    private final Avg[] avgList;
+
     public interface Avg {
-        String intro();
+        String getIntro();
 
         StoryContent getContent();
     }

@@ -1,13 +1,13 @@
 package vip.cdms.arkreader.gradle.utils
 
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
+import com.squareup.javapoet.*
 import javax.lang.model.element.Modifier
-import kotlin.reflect.KCallable
+import kotlin.reflect.KClass
+import kotlin.reflect.KFunction
 import kotlin.reflect.KVisibility
+import kotlin.reflect.jvm.javaMethod
 
-inline fun <reified R> KCallable<R>.overrideMethod(): MethodSpec.Builder =
+inline fun <reified R> KFunction<R>.overrideMethod(): MethodSpec.Builder =
     MethodSpec.methodBuilder(name)
         .addAnnotation(Override::class.java)
         .addModifiers(
@@ -16,7 +16,15 @@ inline fun <reified R> KCallable<R>.overrideMethod(): MethodSpec.Builder =
                 KVisibility.PROTECTED -> Modifier.PROTECTED
                 else -> error("Unexpected visibility: $visibility")
             }
-        )  // ignore parameters... impl it when need
+        ).apply {
+            javaMethod?.parameters?.withIndex()?.forEach { (i, param) ->
+                addParameter(
+                    ParameterSpec
+                        .builder(TypeName.get(param.parameterizedType), "arg$i")
+                        .build()
+                )
+            }
+        }
 //        .returns(returnType.javaType)
         .returns(R::class.java)
 

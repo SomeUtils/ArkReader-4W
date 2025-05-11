@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import vip.cdms.arkreader.resource.EventStoryInfo;
 
-@Getter
 @RequiredArgsConstructor
+@Getter
 public abstract class EventStoryInfoImpl implements EventStoryInfo {
     private final String name;
     private final String avgName;

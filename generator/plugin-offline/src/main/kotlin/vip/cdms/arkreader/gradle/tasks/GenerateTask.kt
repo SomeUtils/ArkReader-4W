@@ -4,6 +4,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import vip.cdms.arkreader.gradle.analyze.GenAppOperatorImpl
 import vip.cdms.arkreader.gradle.analyze.GenAppScoreImpl
 import vip.cdms.arkreader.gradle.analyze.StaticContext
 
@@ -24,5 +25,6 @@ abstract class GenerateTask : DefaultTask() {
         networkCacheDir = networkCacheDir.get().asFile,
     ).let { context ->
         GenAppScoreImpl(context).generate()
+        GenAppOperatorImpl(context).generate()
     }
 }

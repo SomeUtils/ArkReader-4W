@@ -8,18 +8,18 @@ import vip.cdms.arkreader.resource.EventType;
 
 @RequiredArgsConstructor
 public abstract class EventImpl implements Event {
-    final private String coverImageAssets;
+    private final String coverImageAssets;
 
     @Getter
-    final private String name;
+    private final String name;
     @Getter
-    final private EventType type;
+    private final EventType type;
     @Getter
-    final private String appCategory;
+    private final String appCategory;
     @Getter
-    final private long startTime;
+    private final long startTime;
     @Getter
-    final private int wordcount;
+    private final int wordcount;
 
     @Override
     public byte[] getCoverImage() {

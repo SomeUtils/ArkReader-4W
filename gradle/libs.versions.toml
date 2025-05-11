@@ -6,6 +6,7 @@ arkreader-core-code = "1"
 android-gradle-plugin = "8.6.0-alpha07"
 
 projectlombok-lombok = "1.18.38"
+androidx-annotation = "1.9.1"
 androidx-appcompat = "1.7.0"
 androidx-activity = "1.10.1"
 androidx-constraintlayout = "2.2.1"
@@ -16,6 +17,7 @@ google-android-material = "1.12.0"
 arkreader-resource-structure = { module = "_:resource-structure", version = "_" }
 arkreader-resource-network = { module = "_:resource-network", version = "_" }
 projectlombok-lombok = { module = "org.projectlombok:lombok", version.ref = "projectlombok-lombok" }
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
 eclipsesource-minimal-json = { module = "com.eclipsesource.minimal-json:minimal-json", version = "0.9.5" }
 
 # generator

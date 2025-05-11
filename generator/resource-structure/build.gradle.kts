@@ -8,4 +8,5 @@ group = moduleGroup
 dependencies {
     compileOnly(libs.projectlombok.lombok)
     annotationProcessor(libs.projectlombok.lombok)
+    compileOnly(libs.androidx.annotation)
 }
